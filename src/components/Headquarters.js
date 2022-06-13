@@ -2,6 +2,8 @@ import React from "react";
 import { Grid } from "semantic-ui-react";
 import Details from "./Details";
 import "../stylesheets/Headquarters.css";
+import ColdStorage from "./ColdStorage";
+import LogPanel from './LogPanel';
 
 function Headquarters() {
   return (

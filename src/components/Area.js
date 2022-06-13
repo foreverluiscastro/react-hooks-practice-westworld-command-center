@@ -1,5 +1,6 @@
 import React from "react";
 import "../stylesheets/Area.css";
+import HostList from './HostList'
 
 function Area() {
   return (
