@@ -9,7 +9,7 @@ function Details() {
 
   return (
     <Segment id="details" className="HQComps">
-      {true ? <Image size="medium" src={Images.westworldLogo} /> : null}
+      {true ? <Image size="medium" src={Images.westworldLogo} /> : <HostInfo/>}
     </Segment>
   );
 }

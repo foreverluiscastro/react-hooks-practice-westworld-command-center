@@ -10,6 +10,7 @@ function ColdStorage() {
       </Segment>
       <Segment compact>
         {/* Cold Storage contains hosts....but how? Directly? Or is there something else we could use to contain them... */}
+        <HostList/>
       </Segment>
     </Segment.Group>
   );
