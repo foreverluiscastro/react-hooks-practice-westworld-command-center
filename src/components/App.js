@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Segment } from "semantic-ui-react";
 import "../stylesheets/App.css";
 import Headquarters from "./Headquarters";
+import { Log } from "../services/Log";
 import WestWorldMap from "./WestworldMap";
 
 function App() {
@@ -9,6 +10,9 @@ function App() {
   const [hosts, setHosts] = useState([]);
   const [selected, setSelected] = useState(null);
   const [activateAll, setActivateAll] = useState(false);
+  let date = new Date();
+  let time = date.toLocaleTimeString();
+  const [logs] = useState([{type: 'notify', msg: `[${time}] NOTIFY: Welcome to WestWorld.`}])
   const Hosts = "http://localhost:3001/hosts";
   const Areas = "http://localhost:3001/areas";
   useEffect(() => {
@@ -45,7 +49,17 @@ function App() {
     console.log(responseObj);
   };
 
+  function generateLogs(log) {
+    logs.unshift(log)
+    return logs
+  }
+
   const handleActiveToggle = (host) => {
+    if (host.active === false) {
+      generateLogs(Log.warn(`Activated ${host.firstName}`))
+    } else {
+      generateLogs(Log.warn(`Deactivated ${host.firstName}`))
+    }
     const updatedHost = host;
     updatedHost.active = !host.active;
     const responseObj = handlePatch(updatedHost);
@@ -73,15 +87,6 @@ function App() {
     }
   };
 
-  const handleLimitCheck = (area) => {
-    const checkCapacity = hosts.map((host) => host.area === area)
-    if (checkCapacity.length < area.limit) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   return (
     <Segment id="app">
       {/* What components should go here? Check out Checkpoint 1 of the Readme if you're confused */}
@@ -100,9 +105,10 @@ function App() {
         activateAll={activateAll}
         onMassActivate={handleMassActivate}
         onPatch={handlePatch}
-        onLimitCheck={handleLimitCheck}
         hosts={hosts}
         setHosts={setHosts}
+        logs={logs}
+        generateLogs={generateLogs}
       />
     </Segment>
   );

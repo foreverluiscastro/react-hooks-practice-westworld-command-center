@@ -8,16 +8,16 @@ function Details({
   areas,
   onActiveToggle,
   onPatch,
-  onLimitCheck,
   hosts,
-  setHosts
+  setHosts,
+  generateLogs
 }) {
   // We'll render the logo if no host is selected. But if a host does get selected....
   // Watch the video to see how this works in the app.
 
   return (
     <Segment id="details" className="HQComps">
-      {!selected ? <Image size="medium" src={Images.westworldLogo} /> : <HostInfo selected={selected} areas={areas} onActiveToggle={onActiveToggle} onPatch={onPatch} onLimitCheck={onLimitCheck} hosts={hosts} setHosts={setHosts}/>}
+      {!selected ? <Image size="medium" src={Images.westworldLogo} /> : <HostInfo selected={selected} areas={areas} onActiveToggle={onActiveToggle} onPatch={onPatch} hosts={hosts} setHosts={setHosts} generateLogs={generateLogs}/>}
     </Segment>
   );
 }

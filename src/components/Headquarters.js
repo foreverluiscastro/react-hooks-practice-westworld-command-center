@@ -16,7 +16,9 @@ function Headquarters({
   onPatch,
   onLimitCheck,
   hosts,
-  setHosts
+  setHosts,
+  logs,
+  generateLogs
 }) {
   return (
     <Grid celled="internally">
@@ -30,11 +32,12 @@ function Headquarters({
         onLimitCheck={onLimitCheck}
         hosts={hosts}
         setHosts={setHosts}
+        generateLogs={generateLogs}
         />
       </Grid.Column>
       <Grid.Column width={3}>
         {/* and here. Take visual cues from the screenshot/video in the Readme. */}
-        <LogPanel onMassActivate={onMassActivate} activateAll={activateAll}/>
+        <LogPanel onMassActivate={onMassActivate} activateAll={activateAll} logs={logs}/>
       </Grid.Column>
     </Grid>
   );

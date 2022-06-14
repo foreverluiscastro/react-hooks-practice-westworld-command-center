@@ -9,15 +9,16 @@ import {
   Divider,
 } from "semantic-ui-react";
 import "../stylesheets/HostInfo.css";
+import { Log } from "../services/Log";
 
 function HostInfo({
   selected,
   areas,
   onActiveToggle,
   onPatch,
-  onLimitCheck,
   hosts,
-  setHosts
+  setHosts,
+  generateLogs
 }) {
   const { firstName, active, imageUrl, gender, area } = selected;
   
@@ -59,6 +60,7 @@ function HostInfo({
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
     console.log(e, 'this is the event.')
     console.log(value, 'this is the value.')
+    generateLogs(Log.notify(`${selected.firstName} set in area ${sanitizeString(value)}`))
     setCurrentArea(value)
     selected.area = value
     console.log(selected, 'this is the updated selected object.')
