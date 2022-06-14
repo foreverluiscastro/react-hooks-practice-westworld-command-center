@@ -2,7 +2,7 @@ import React from "react";
 import "../stylesheets/Area.css";
 import HostList from './HostList'
 
-function Area({ area }) {
+function Area({ area , selected , onSelect , activeHosts }) {
   const { name , limit } = area
 
   const sanitizeString = (string) => {
@@ -13,6 +13,7 @@ function Area({ area }) {
   };
 
   const sanitizeName = sanitizeString(name);
+  const filteredHosts = activeHosts.filter((host) => host.area === name);
 
   return (
     <div
@@ -26,7 +27,7 @@ function Area({ area }) {
         {sanitizeName}
       </h3>
       {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
-      <HostList/>
+      <HostList onSelect={onSelect} hosts={filteredHosts} selected={selected}/>
     </div>
   );
 }

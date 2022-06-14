@@ -10,16 +10,34 @@ import {
 } from "semantic-ui-react";
 import "../stylesheets/HostInfo.css";
 
-function HostInfo() {
+function HostInfo({ selected , areas , onActiveToggle}) {
+
+  const { firstName, active, imageUrl, gender, area } = selected
+
   // This state is just to show how the dropdown component works.
   // Options have to be formatted in this way (array of objects with keys of: key, text, value)
   // Value has to match the value in the object to render the right text.
 
+  const sanitizeString = (string) => {
+    const replaceUnderscore = string.replace("_", " ")
+    const wordsArray = replaceUnderscore.split(" ")
+    const capitalizeWords = wordsArray.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    return capitalizeWords.join(" ")
+  };
+
   // IMPORTANT: But whether it should be stateful or not is entirely up to you. Change this component however you like.
-  const [options] = useState([
-    { key: "some_area", text: "Some Area", value: "some_area" },
-    { key: "another_area", text: "Another Area", value: "another_area" },
-  ]);
+  // const [options] = useState([
+  //   { key: "some_area", text: "Some Area", value: "some_area" },
+  //   { key: "another_area", text: "Another Area", value: "another_area" },
+  // ]);
+  const options = areas.map((area) => {
+    const sanitizeName = sanitizeString(area.name);
+    return {
+      key: area.name,
+      text: sanitizeName,
+      value: area.name
+    }
+  })
 
   const [value] = useState("some_area");
 
@@ -29,15 +47,17 @@ function HostInfo() {
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
   }
 
+
   function handleRadioChange() {
     console.log("The radio button fired");
+    onActiveToggle(selected)
   }
 
   return (
     <Grid>
       <Grid.Column width={6}>
         <Image
-          src={/* pass in the right image here */ ""}
+          src={imageUrl}
           floated="left"
           size="small"
           className="hostImg"
@@ -47,7 +67,7 @@ function HostInfo() {
         <Card>
           <Card.Content>
             <Card.Header>
-              {"Bob"} | {true ? <Icon name="man" /> : <Icon name="woman" />}
+              {firstName} | {gender === 'Male' ? <Icon name="man" /> : <Icon name="woman" />}
               {/* Think about how the above should work to conditionally render the right First Name and the right gender Icon */}
             </Card.Header>
             <Card.Meta>
@@ -56,7 +76,7 @@ function HostInfo() {
               <Radio
                 onChange={handleRadioChange}
                 label={"Active"}
-                checked={true}
+                checked={active === true}
                 slider
               />
             </Card.Meta>
