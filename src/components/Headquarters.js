@@ -11,7 +11,12 @@ function Headquarters({
   selected,
   areas,
   onActiveToggle,
-  onMassActivate
+  activateAll,
+  onMassActivate,
+  onPatch,
+  onLimitCheck,
+  hosts,
+  setHosts
 }) {
   return (
     <Grid celled="internally">
@@ -21,11 +26,15 @@ function Headquarters({
         selected={selected}
         areas={areas}
         onActiveToggle={onActiveToggle}
+        onPatch={onPatch}
+        onLimitCheck={onLimitCheck}
+        hosts={hosts}
+        setHosts={setHosts}
         />
       </Grid.Column>
       <Grid.Column width={3}>
         {/* and here. Take visual cues from the screenshot/video in the Readme. */}
-        <LogPanel onMassActivate={onMassActivate}/>
+        <LogPanel onMassActivate={onMassActivate} activateAll={activateAll}/>
       </Grid.Column>
     </Grid>
   );

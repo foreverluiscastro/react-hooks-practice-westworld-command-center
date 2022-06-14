@@ -2,8 +2,7 @@ import React from "react";
 import "../stylesheets/Area.css";
 import HostList from './HostList'
 
-function Area({ area , selected , onSelect , activeHosts }) {
-  const { name , limit } = area
+function Area({ name, limit , selected , onSelect , hosts }) {
 
   const sanitizeString = (string) => {
     const replaceUnderscore = string.replace("_", " ")
@@ -13,7 +12,7 @@ function Area({ area , selected , onSelect , activeHosts }) {
   };
 
   const sanitizeName = sanitizeString(name);
-  const filteredHosts = activeHosts.filter((host) => host.area === name);
+  const filteredHosts = hosts.filter((host) => host.area === name);
 
   return (
     <div

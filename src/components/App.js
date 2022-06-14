@@ -59,19 +59,28 @@ function App() {
     if (activateAll === false) {
       // if activateAll is false, set it to true and mass activate
       setActivateAll(true);
-      hosts.map((host) => {
+      hosts.forEach((host) => {
         host.active = true;
         handlePatch(host);
       });
     } else {
       // else if it's true, set it to false and mass deactivate
       setActivateAll(false);
-      hosts.map((host) => {
+      hosts.forEach((host) => {
         host.active = false;
         handlePatch(host);
       });
     }
   };
+
+  const handleLimitCheck = (area) => {
+    const checkCapacity = hosts.map((host) => host.area === area)
+    if (checkCapacity.length < area.limit) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <Segment id="app">
@@ -88,7 +97,12 @@ function App() {
         selected={selected}
         areas={areas}
         onActiveToggle={handleActiveToggle}
+        activateAll={activateAll}
         onMassActivate={handleMassActivate}
+        onPatch={handlePatch}
+        onLimitCheck={handleLimitCheck}
+        hosts={hosts}
+        setHosts={setHosts}
       />
     </Segment>
   );
